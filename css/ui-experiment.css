@@ -1,17 +1,73 @@
 /* TANIDIK — Experimental UI merge (demo only). Scoped to body.ui-experiment */
 
 body.ui-experiment {
-  --hybrid-gap: 18px;
-  --hybrid-section-pad: 18px 20px;
-  --card-img-h: 148px;
-  --card-img-h-desktop: 172px;
+  --hybrid-gap: 22px;
+  --hybrid-section-pad: 20px 22px;
+  --section-radius: 20px;
+  background-color: #020205;
+}
+
+/* —— Cinematic noir ambient background —— */
+
+body.ui-experiment .experiment-ambient {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 90% 55% at 50% -8%, rgba(240, 192, 96, 0.14), transparent 58%),
+    radial-gradient(ellipse 45% 35% at 100% 20%, rgba(180, 120, 255, 0.07), transparent 55%),
+    radial-gradient(ellipse 40% 30% at 0% 70%, rgba(240, 192, 96, 0.06), transparent 50%),
+    radial-gradient(ellipse 70% 45% at 50% 100%, rgba(20, 16, 40, 0.9), transparent 70%),
+    linear-gradient(165deg, #08081a 0%, #030308 38%, #020205 72%, #010103 100%);
+}
+
+body.ui-experiment .experiment-ambient::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(circle at 30% 40%, rgba(240, 192, 96, 0.08), transparent 42%),
+    radial-gradient(circle at 75% 60%, rgba(255, 120, 160, 0.04), transparent 38%);
+  animation: experimentAmbientDrift 22s ease-in-out infinite alternate;
+}
+
+body.ui-experiment .experiment-ambient::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 45vh;
+  background: linear-gradient(to top, rgba(2, 2, 5, 0.95), transparent);
+}
+
+@keyframes experimentAmbientDrift {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  100% {
+    transform: translate(2%, -1.5%) scale(1.04);
+  }
+}
+
+body.ui-experiment .navbar,
+body.ui-experiment .home-app-main,
+body.ui-experiment .home-identity-section,
+body.ui-experiment .discover-page,
+body.ui-experiment .venue-detail-app,
+body.ui-experiment .app-tabbar {
+  position: relative;
+  z-index: 1;
 }
 
 /* —— Homepage hybrid flow —— */
 
 body.ui-experiment .home-app-main.home-hybrid {
   gap: var(--hybrid-gap);
-  padding-bottom: 40px;
+  padding-bottom: 48px;
 }
 
 body.ui-experiment .home-hybrid-hero {
@@ -39,14 +95,57 @@ body.ui-experiment .home-search-panel .home-discover-link {
   display: none;
 }
 
-body.ui-experiment .home-venues-feed .section-title {
-  font-size: clamp(1.1rem, 3vw, 1.35rem);
-  margin-bottom: 2px;
+body.ui-experiment .home-section__head {
+  margin-bottom: 14px;
+}
+
+body.ui-experiment .home-section__eyebrow {
+  font-family: var(--fm);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold2);
+  margin-bottom: 6px;
+}
+
+body.ui-experiment .home-section .section-title {
+  font-family: var(--fd);
+  font-weight: 300;
+  font-size: clamp(1.25rem, 3.2vw, 1.65rem);
+  color: #fff;
+  margin: 0 0 6px;
+  line-height: 1.12;
 }
 
 body.ui-experiment .home-venues-feed-hint {
   font-size: 12px;
-  margin-bottom: 12px;
+  margin: 0;
+  color: var(--silver);
+  line-height: 1.5;
+}
+
+body.ui-experiment .home-venues-feed__footer {
+  margin-top: 14px;
+  display: flex;
+  justify-content: center;
+}
+
+body.ui-experiment .home-view-all-btn {
+  min-width: 200px;
+  text-align: center;
+  justify-content: center;
+}
+
+body.ui-experiment .home-section.public-section,
+body.ui-experiment .home-search-panel.public-section {
+  border-radius: var(--section-radius);
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(240, 192, 96, 0.06) inset;
+}
+
+body.ui-experiment .venue-card--curated-hidden {
+  display: none !important;
 }
 
 body.ui-experiment .home-social-proof {
@@ -215,97 +314,136 @@ body.ui-experiment .venues-grid--compact {
   }
 }
 
+body.ui-experiment .venues-grid--compact {
+  gap: 14px;
+}
+
 body.ui-experiment .venues-grid--compact .venue-card {
   display: grid;
-  grid-template-columns: 108px 1fr;
-  grid-template-rows: auto auto;
-  border-radius: 16px;
+  grid-template-columns: 96px 1fr;
+  grid-template-rows: 1fr;
+  align-items: stretch;
+  border-radius: 18px;
   min-height: 0;
+  border-color: rgba(240, 192, 96, 0.1);
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.42),
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset;
 }
 
 body.ui-experiment .venues-grid--compact .venue-card img {
-  grid-row: 1 / 3;
+  grid-row: 1;
   grid-column: 1;
   width: 100%;
   height: 100%;
-  min-height: 108px;
-  max-height: 132px;
+  min-height: 96px;
+  max-height: 112px;
   object-fit: cover;
 }
 
 body.ui-experiment .venues-grid--compact .venue-content {
   grid-column: 2;
-  padding: 12px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 14px 12px 12px;
   background: transparent;
+  min-width: 0;
 }
 
 body.ui-experiment .venues-grid--compact .venue-content h2 {
-  font-size: 1rem;
-  margin-bottom: 4px;
+  font-family: var(--fu);
+  font-size: 0.92rem;
+  font-weight: 600;
+  margin: 0;
   line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: #fff;
 }
 
 body.ui-experiment .venues-grid--compact .venue-content .venue-meta {
-  margin-bottom: 6px;
+  margin: 0;
   font-size: 8px;
+  letter-spacing: 0.12em;
 }
 
-body.ui-experiment .venues-grid--compact .venue-content p {
-  font-size: 12px;
-  margin-bottom: 8px;
-  -webkit-line-clamp: 2;
+body.ui-experiment .venues-grid--compact .venue-content > p {
+  display: none;
 }
 
-body.ui-experiment .venues-grid--compact .venue-stats,
+body.ui-experiment .venues-grid--compact .venue-stats {
+  margin: 0;
+  gap: 6px;
+}
+
+body.ui-experiment .venues-grid--compact .venue-stat-badge,
 body.ui-experiment .venues-grid--compact .event-countdown-badge,
 body.ui-experiment .venues-grid--compact .event-attendee-badge {
-  margin-bottom: 6px;
+  margin: 0;
+  padding: 4px 9px;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border-radius: 999px;
+}
+
+body.ui-experiment .venues-grid--compact .event-countdown-badge,
+body.ui-experiment .venues-grid--compact .event-attendee-badge {
+  width: fit-content;
 }
 
 body.ui-experiment .venues-grid--compact .venue-content .btn,
 body.ui-experiment .venues-grid--compact .venue-content .favorite-remove-btn {
-  padding: 8px 14px;
-  font-size: 10px;
+  align-self: flex-start;
+  margin: 2px 0 0;
+  padding: 5px 12px;
+  min-height: 28px;
   width: auto;
-  display: inline-block;
+  max-width: 100%;
+  font-family: var(--fu);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1.2;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(240, 192, 96, 0.12);
+}
+
+body.ui-experiment .venues-grid--compact .venue-content .favorite-remove-btn {
+  font-size: 8px;
+  padding: 5px 10px;
+  box-shadow: none;
 }
 
 body.ui-experiment .venues-grid--compact .venue-card:hover {
-  transform: translateY(-3px) scale(1.005);
+  transform: translateY(-2px);
+  border-color: rgba(240, 192, 96, 0.28);
 }
 
-/* Home grid: compact on mobile, card grid on wide */
-@media (max-width: 767px) {
-  body.ui-experiment .home-venues-feed .venues-grid {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
+/* Homepage recommended grid: 1–2 columns, never 3-wide crowd */
+body.ui-experiment .venues-grid--home {
+  grid-template-columns: 1fr;
+}
 
-  body.ui-experiment .home-venues-feed .venue-card {
-    display: grid;
-    grid-template-columns: 100px 1fr;
-    border-radius: 16px;
+@media (min-width: 640px) {
+  body.ui-experiment .venues-grid--home {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
   }
+}
 
-  body.ui-experiment .home-venues-feed .venue-card img {
-    grid-row: 1 / span 2;
-    height: 100%;
-    min-height: 100px;
-    max-height: 120px;
-  }
-
-  body.ui-experiment .home-venues-feed .venue-content {
-    padding: 12px 14px;
-  }
-
-  body.ui-experiment .home-venues-feed .venue-content h2 {
-    font-size: 1rem;
-  }
-
-  body.ui-experiment .home-venues-feed .venue-content p {
-    -webkit-line-clamp: 2;
-    font-size: 12px;
-  }
+/* Discover/events keep description visible */
+body.ui-experiment .discover-page .venues-grid--compact .venue-content > p,
+body.ui-experiment .events-page .venues-grid--compact .venue-content > p {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 11px;
+  margin: 0;
+  line-height: 1.45;
+  color: var(--silver);
 }
 
 /* —— Discover / events page rhythm —— */
@@ -507,5 +645,11 @@ body.ui-experiment .demo-banner {
     top: auto;
     bottom: 24px;
     transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.ui-experiment .experiment-ambient::before {
+    animation: none;
   }
 }

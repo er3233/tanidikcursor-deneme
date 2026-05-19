@@ -27,6 +27,8 @@
 
 <body class="app-shell ui-experiment">
 
+  <div class="experiment-ambient" aria-hidden="true"></div>
+
   <p class="demo-banner" aria-hidden="true">UI experiment demo</p>
 
   <nav class="navbar">
@@ -54,13 +56,19 @@
       <h2>Search the city, <em>feel</em> the room</h2>
     </header>
 
-    <section class="home-venues-feed" aria-label="Venue feed">
-      <h2 class="section-title">Venues for you</h2>
-      <p class="home-venues-feed-hint">Tap a card for details, reviews, and reservations.</p>
-      <div id="venuesContainer" class="venues-grid venues-grid--compact"></div>
+    <section class="home-venues-feed home-section" aria-label="Recommended venues">
+      <div class="home-section__head">
+        <p class="home-section__eyebrow">For you</p>
+        <h2 class="section-title">Recommended venues</h2>
+        <p class="home-venues-feed-hint" id="homeVenuesHint">Curated picks based on ratings and favorites.</p>
+      </div>
+      <div id="venuesContainer" class="venues-grid venues-grid--compact venues-grid--home"></div>
+      <div class="home-venues-feed__footer" id="homeVenuesFooter" hidden>
+        <a href="./discover.html" class="secondary-btn home-view-all-btn">View all venues</a>
+      </div>
     </section>
 
-    <section class="home-social-proof public-section" aria-label="Community reviews">
+    <section class="home-social-proof home-section public-section" aria-label="Community reviews">
       <div class="home-social-proof__head">
         <h2 class="section-title">What people are saying</h2>
         <span class="home-social-proof__badge">Live reviews</span>
@@ -68,7 +76,7 @@
       <div id="homeSocialProof" class="home-social-proof__list"></div>
     </section>
 
-    <section id="homeMapSection" class="home-map-teaser public-section" aria-label="Map preview">
+    <section id="homeMapSection" class="home-map-teaser home-section public-section" aria-label="Map preview">
       <h2 class="section-title">On the map</h2>
       <p id="homeMapHint" class="home-map-teaser__hint">Loading a venue near you…</p>
       <iframe id="homeMapEmbed" class="location-map home-map-teaser__map" title="Venue map preview" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
