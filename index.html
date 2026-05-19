@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  />
+
+  <title>TANIDIK | Premium Nightlife Discovery</title>
+
+  <meta
+    name="description"
+    content="Discover premium nightlife venues, events, favorites, and reviews with TANIDIK."
+  />
+
+  <meta name="theme-color" content="#020205" />
+
+  <link
+    rel="icon"
+    href="./assets/favicon.svg"
+    type="image/svg+xml"
+  />
+
+  <link rel="manifest" href="./manifest.webmanifest" />
+
+  <link rel="apple-touch-icon" href="./assets/icon-192.png" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="TANIDIK" />
+  <meta property="og:title" content="TANIDIK | Premium Nightlife Discovery" />
+  <meta
+    property="og:description"
+    content="Discover premium nightlife venues, events, favorites, and reviews with TANIDIK."
+  />
+  <meta property="og:url" content="https://hilarious-kheer-076854.netlify.app/index.html" />
+  <meta property="og:image" content="https://hilarious-kheer-076854.netlify.app/assets/social-preview.png" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="TANIDIK | Premium Nightlife Discovery" />
+  <meta
+    name="twitter:description"
+    content="Discover premium nightlife venues, events, favorites, and reviews with TANIDIK."
+  />
+  <meta name="twitter:image" content="https://hilarious-kheer-076854.netlify.app/assets/social-preview.png" />
+
+  <link
+    rel="stylesheet"
+    href="./css/style.css"
+  />
+  <link rel="stylesheet" href="./css/home-identity.css" />
+</head>
+
+<body class="app-shell">
+
+  <nav class="navbar">
+    <h1>TANIDIK</h1>
+
+    <button
+      class="nav-toggle"
+      type="button"
+      aria-label="Toggle navigation"
+      aria-expanded="false"
+    >
+      Menu
+    </button>
+
+    <div class="nav-links">
+      <a href="./index.html">Home</a>
+      <a href="./discover.html">Discover</a>
+      <a href="./events.html">Events</a>
+      <a href="./favorites.html">Favorites</a>
+
+      <a
+        href="./auth.html"
+        id="authLink"
+      >
+        Login
+      </a>
+    </div>
+  </nav>
+
+  <main class="home-app-main public-detail">
+
+    <header class="home-app-hero">
+      <p class="home-app-eyebrow">Tonight starts here</p>
+      <h2>
+        Search the city, <em>feel</em> the room
+      </h2>
+      <p>
+        Venues, events, and reservations — one feed tuned for going out.
+      </p>
+    </header>
+
+    <section
+      class="home-search-panel public-section discover-controls"
+      aria-label="Search venues"
+    >
+      <input
+        type="text"
+        id="venueSearchInput"
+        placeholder="Search venues by name, city, vibe…"
+        class="search-input"
+      />
+
+      <div
+        id="cityFilters"
+        class="city-filters"
+      >
+      </div>
+
+      <a
+        href="./discover.html"
+        class="secondary-btn home-discover-link"
+      >
+        Open full discover view
+      </a>
+    </section>
+
+    <section
+      class="home-events-strip public-section"
+      aria-label="Events"
+    >
+      <h2 class="section-title">
+        Events on the horizon
+      </h2>
+      <p>
+        Browse lineups, dates, and RSVP-ready nights — then jump back to venues whenever you want.
+      </p>
+      <a
+        href="./events.html"
+        class="btn"
+      >
+        View events
+      </a>
+    </section>
+
+    <section
+      class="home-venues-feed"
+      aria-label="Venue feed"
+    >
+      <h2 class="section-title">
+        Venues for you
+      </h2>
+      <p class="home-venues-feed-hint">
+        Updated live from the city. Tap a card for details, reviews, and reservations.
+      </p>
+
+      <div
+        id="venuesContainer"
+        class="venues-grid"
+      >
+      </div>
+    </section>
+
+  </main>
+
+  <section id="identity-studio" class="home-identity-section" aria-label="Identity Studio">
+    <div class="home-identity-intro">
+      <p class="sec-label">Identity Studio</p>
+      <h2>Craft your city persona</h2>
+      <p>
+        Build your nightlife avatar before you explore venues and events.
+        Your persona travels with you across the city map.
+      </p>
+    </div>
+    <div class="home-identity-frame-wrap">
+      <iframe
+        class="home-identity-frame"
+        src="./identity-studio.html"
+        title="TANIDIK Identity Studio"
+        loading="lazy"
+      ></iframe>
+    </div>
+  </section>
+
+  <nav class="app-tabbar" aria-label="Primary">
+    <div class="app-tabbar__dock">
+      <a
+        href="./index.html"
+        class="app-tabbar__item app-tabbar__item--active"
+        aria-current="page"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+          <path d="M4 10.5L12 4l8 6.5V20a1 1 0 01-1 1h-5v-7H10v7H5a1 1 0 01-1-1v-9.5z" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <span>Home</span>
+      </a>
+      <a href="./discover.html" class="app-tabbar__item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" />
+          <path d="M20 20l-3-3" stroke-linecap="round" />
+        </svg>
+        <span>Discover</span>
+      </a>
+      <a href="./events.html" class="app-tabbar__item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+          <rect x="4" y="5" width="16" height="14" rx="2" />
+          <path d="M8 3v4M16 3v4M4 11h16" stroke-linecap="round" />
+        </svg>
+        <span>Events</span>
+      </a>
+      <a href="./messages.html" class="app-tabbar__item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+          <path d="M21 12a8 8 0 11-4 8H8l-4 2V12a8 8 0 118-1z" stroke-linejoin="round" />
+        </svg>
+        <span>Messages</span>
+      </a>
+      <a href="./profile.html" class="app-tabbar__item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+          <circle cx="12" cy="8" r="3.5" />
+          <path d="M6 19c0-3.5 3-5.5 6-5.5s6 2 6 5.5" stroke-linecap="round" />
+        </svg>
+        <span>Profile</span>
+      </a>
+    </div>
+  </nav>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+  <script src="./js/app.js"></script>
+
+  <div id="toast" class="toast"></div>
+
+</body>
+</html>

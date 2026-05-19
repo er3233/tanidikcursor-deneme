@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" class="ids-page">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>TANIDIK Identity Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Syne:wght@400;500;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/identity-studio.css">
+</head>
+<body>
+
+  <div id="gender-gate">
+    <div class="gg-inner">
+      <div class="gg-label">Identity Studio</div>
+      <h1>Who enters the night?</h1>
+      <p>Choose how your persona appears in the city. You can refine every detail in the chapters ahead.</p>
+      <div class="gg-btns">
+        <button type="button" class="gg-btn" onclick="selectGender('f')">Feminine</button>
+        <button type="button" class="gg-btn" onclick="selectGender('m')">Masculine</button>
+        <button type="button" class="gg-btn" onclick="selectGender('x')">Fluid</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="reveal-overlay">
+    <canvas id="rv-canvas"></canvas>
+    <div class="rv-content">
+      <div class="rv-label">Persona sealed</div>
+      <h2 id="rv-name">Nightwalker</h2>
+      <p class="rv-archetype" id="rv-archetype">Velvet Phantom</p>
+      <button type="button" class="rv-enter" onclick="enterCity()">Enter the city</button>
+    </div>
+  </div>
+
+  <div id="app">
+    <canvas id="bg-canvas"></canvas>
+
+    <div id="avatar-panel">
+      <canvas id="avatar-canvas" width="360" height="480"></canvas>
+      <p class="avatar-hint">Live preview · scroll chapters to customize</p>
+    </div>
+
+    <div id="chapter-panel">
+      <div class="ch-top">
+        <div class="ch-eyebrow" id="ch-eyebrow">Chapter 1 of 7</div>
+        <h2 id="ch-title">Archetype</h2>
+        <p id="ch-desc">Pick the energy you bring into every room.</p>
+      </div>
+
+      <div id="ch-archetype" class="ch-options"></div>
+      <div id="ch-skin" class="ch-options chapter-hidden"></div>
+      <div id="ch-hair" class="ch-options chapter-hidden"></div>
+      <div id="ch-eyes" class="ch-options chapter-hidden"></div>
+      <div id="ch-outfit" class="ch-options chapter-hidden"></div>
+      <div id="ch-accessory" class="ch-options chapter-hidden"></div>
+      <div id="ch-codename" class="chapter-hidden">
+        <input type="text" id="codename-input" maxlength="24" placeholder="Your city name…" oninput="onCodenameInput(this.value)">
+      </div>
+    </div>
+
+    <div id="bottom-bar">
+      <div class="ch-dots" id="ch-dots"></div>
+      <div class="bb-nav">
+        <button type="button" class="bb-btn" id="btn-prev" onclick="prevChapter()" disabled>Back</button>
+        <button type="button" class="bb-btn primary" id="btn-next" onclick="nextChapter()">Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./js/home-identity.js"></script>
+</body>
+</html>

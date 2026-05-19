@@ -1,0 +1,80 @@
+/* Homepage wrapper for Identity Studio embed */
+.home-identity-section {
+  position: relative;
+  z-index: 1;
+  padding: 0 0 48px;
+  background: linear-gradient(
+    180deg,
+    var(--void) 0%,
+    var(--abyss) 40%,
+    var(--void) 100%
+  );
+  border-top: 1px solid var(--glass-b);
+}
+
+.home-identity-intro {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px 28px;
+  text-align: center;
+}
+
+.home-identity-intro .sec-label {
+  font-family: var(--fm);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold2);
+  margin-bottom: 14px;
+}
+
+.home-identity-intro h2 {
+  font-family: var(--fd);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 300;
+  color: #fff;
+  margin-bottom: 12px;
+  line-height: 1.15;
+}
+
+.home-identity-intro p {
+  color: var(--silver);
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 8px;
+}
+
+.home-identity-frame-wrap {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 16px 16px;
+}
+
+.home-identity-frame {
+  display: block;
+  width: 100%;
+  min-height: 720px;
+  height: min(88vh, 920px);
+  border: 1px solid var(--glass-b);
+  border-radius: 22px;
+  background: var(--void);
+  box-shadow: var(--shadow-soft), 0 0 80px rgba(240, 192, 96, 0.06);
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .home-identity-intro {
+    padding: 36px 16px 20px;
+  }
+
+  .home-identity-frame {
+    min-height: 640px;
+    height: min(92vh, 820px);
+    border-radius: 18px;
+  }
+
+  .home-identity-frame-wrap {
+    padding: 0 12px 12px;
+  }
+}
