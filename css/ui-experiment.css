@@ -746,7 +746,15 @@ body.ui-experiment .events-page .venues-grid--compact .venue-content > p {
 /* —— Discover page — Claude concept merge (scoped) —— */
 
 body.ui-experiment.discover-index.app-shell {
-  padding-bottom: 0;
+  padding-bottom: calc(
+    var(--tabbar-h) + var(--tabbar-pad) * 2 + var(--safe-bottom) + 18px
+  );
+}
+
+@media (min-width: 769px) {
+  body.ui-experiment.discover-index.app-shell {
+    padding-bottom: 0;
+  }
 }
 
 body.ui-experiment.discover-index {
@@ -812,41 +820,29 @@ body.ui-experiment.discover-index .demo-banner {
   z-index: 200;
 }
 
-body.ui-experiment.discover-index .discover-app-frame {
+body.ui-experiment.discover-index .discover-app.public-detail {
   position: relative;
   z-index: 1;
-  max-width: 430px;
+  width: min(100%, 680px);
+  max-width: calc(100% - 24px);
   margin: 0 auto;
-  min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  background: var(--dc-black);
-  box-shadow: 0 0 0 1px var(--dc-border);
+  min-height: auto;
+  background: linear-gradient(180deg, rgba(7, 7, 7, 0.98), rgba(7, 7, 7, 0.94));
 }
 
-@media (min-width: 431px) {
-  body.ui-experiment.discover-index .discover-app-frame {
-    margin-top: 12px;
-    margin-bottom: 12px;
-    min-height: calc(100dvh - 24px);
-    max-height: 900px;
-    border-radius: 40px;
-    overflow: hidden;
-    box-shadow:
-      0 0 120px rgba(0, 0, 0, 0.95),
-      0 0 0 1px var(--dc-border);
+@media (min-width: 769px) {
+  body.ui-experiment.discover-index .discover-app.public-detail {
+    width: min(100%, 720px);
+    max-width: calc(100% - 40px);
+    margin-top: 18px;
+    margin-bottom: 54px;
   }
 }
 
 body.ui-experiment.discover-index .discover-app.public-detail {
-  max-width: none;
-  margin: 0;
   padding: 0;
-  width: 100%;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
+  display: block;
+  min-height: auto;
 }
 
 body.ui-experiment.discover-index .discover-header {
@@ -860,6 +856,12 @@ body.ui-experiment.discover-index .discover-header {
     rgba(7, 7, 7, 0.97) 65%,
     rgba(7, 7, 7, 0) 100%
   );
+}
+
+@media (min-width: 769px) {
+  body.ui-experiment.discover-index .discover-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.035);
+  }
 }
 
 body.ui-experiment.discover-index .discover-brand-row {
@@ -1096,15 +1098,16 @@ body.ui-experiment.discover-index .discover-city-tabs .city-filter-btn.active-fi
 }
 
 body.ui-experiment.discover-index .discover-scroll-area {
-  flex: 1;
-  overflow-y: auto;
+  overflow: visible;
   padding: 8px 0
     calc(var(--tabbar-h) + var(--tabbar-pad) * 2 + var(--safe-bottom) + 28px);
-  scrollbar-width: none;
+  min-height: 0;
 }
 
-body.ui-experiment.discover-index .discover-scroll-area::-webkit-scrollbar {
-  display: none;
+@media (min-width: 769px) {
+  body.ui-experiment.discover-index .discover-scroll-area {
+    padding-bottom: 36px;
+  }
 }
 
 body.ui-experiment.discover-index .discover-section-header {
@@ -1572,7 +1575,7 @@ body.ui-experiment.discover-index .discover-tabbar.app-tabbar {
   transform: translateX(-50%);
   bottom: 0;
   width: 100%;
-  max-width: 430px;
+  max-width: 680px;
   z-index: 100;
   padding: 10px 12px calc(10px + var(--safe-bottom));
   pointer-events: none;
@@ -1591,11 +1594,9 @@ body.ui-experiment.discover-index .discover-tabbar .app-tabbar__dock {
   padding: 4px 5px;
 }
 
-@media (min-width: 431px) {
+@media (min-width: 769px) {
   body.ui-experiment.discover-index .discover-tabbar.app-tabbar {
-    position: absolute;
-    border-radius: 0 0 40px 40px;
-    overflow: hidden;
+    display: none !important;
   }
 }
 
