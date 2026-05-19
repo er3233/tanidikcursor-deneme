@@ -3,125 +3,135 @@
 
 <head>
   <meta charset="UTF-8" />
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-  />
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Discover Venues | TANIDIK</title>
-
-  <meta
-    name="description"
-    content="Browse TANIDIK nightlife venues, compare ratings, and save your favorites."
-  />
-
-  <meta name="theme-color" content="#020205" />
-
-  <link
-    rel="icon"
-    href="./assets/favicon.svg"
-    type="image/svg+xml"
-  />
-
+  <meta name="description" content="Browse TANIDIK nightlife venues, compare ratings, and save your favorites." />
+  <meta name="theme-color" content="#070707" />
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
   <link rel="manifest" href="./manifest.webmanifest" />
-
   <link rel="apple-touch-icon" href="./assets/icon-192.png" />
-
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="TANIDIK" />
   <meta property="og:title" content="Discover Venues | TANIDIK" />
-  <meta
-    property="og:description"
-    content="Browse TANIDIK nightlife venues, compare ratings, and save your favorites."
-  />
+  <meta property="og:description" content="Browse TANIDIK nightlife venues, compare ratings, and save your favorites." />
   <meta property="og:url" content="https://hilarious-kheer-076854.netlify.app/discover.html" />
   <meta property="og:image" content="https://hilarious-kheer-076854.netlify.app/assets/social-preview.png" />
-
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Discover Venues | TANIDIK" />
-  <meta
-    name="twitter:description"
-    content="Browse TANIDIK nightlife venues, compare ratings, and save your favorites."
-  />
+  <meta name="twitter:description" content="Browse TANIDIK nightlife venues, compare ratings, and save your favorites." />
   <meta name="twitter:image" content="https://hilarious-kheer-076854.netlify.app/assets/social-preview.png" />
-
   <link rel="stylesheet" href="./css/style.css" />
   <link rel="stylesheet" href="./css/ui-experiment.css" />
 </head>
 
-<body class="app-shell ui-experiment">
+<body class="app-shell ui-experiment discover-index">
+
+  <div class="experiment-ambient discover-ambient" aria-hidden="true"></div>
 
   <p class="demo-banner" aria-hidden="true">UI experiment demo</p>
 
-  <nav class="navbar">
-
+  <nav class="navbar discover-navbar" aria-label="Site navigation">
     <h1>TANIDIK</h1>
-
-    <button
-      class="nav-toggle"
-      type="button"
-      aria-label="Toggle navigation"
-      aria-expanded="false"
-    >
-      Menu
-    </button>
-
+    <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
     <div class="nav-links">
-
       <a href="./index.html">Home</a>
-
       <a href="./discover.html">Discover</a>
-
       <a href="./events.html">Events</a>
-
       <a href="./favorites.html">Favorites</a>
-
-      <a
-        href="./auth.html"
-        id="authLink"
-      >
-        Login
-      </a>
-
+      <a href="./auth.html" id="authLink">Login</a>
     </div>
-
   </nav>
 
-  <main class="discover-page public-detail">
+  <div class="discover-app-frame">
 
-    <header class="public-page-header">
-      <h1>
-        Discover Venues
-      </h1>
-    </header>
+    <main class="discover-page discover-app public-detail">
 
-    <div class="discover-controls public-section">
+      <header class="discover-header" aria-label="Search and filters">
 
-      <input
-        type="text"
-        id="venueSearchInput"
-        placeholder="Search venues..."
-        class="search-input"
-      />
+        <div class="discover-brand-row">
+          <div class="discover-logo-wrap">
+            <a href="./index.html" class="discover-logo">Tanıdık</a>
+            <span class="discover-logo-sub">Premium Nightlife</span>
+          </div>
+          <div class="discover-brand-actions">
+            <a href="./discover.html" class="discover-icon-btn" aria-label="Discover">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="7" />
+                <path d="M20 20l-3-3" />
+              </svg>
+            </a>
+            <a href="./favorites.html" class="discover-icon-btn" aria-label="Favorites">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+              </svg>
+            </a>
+            <a href="./auth.html" class="discover-icon-btn discover-icon-btn--auth" id="discoverAuthBtn" aria-label="Account">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+              <span class="discover-icon-btn__label" id="discoverAuthLabel">Login</span>
+            </a>
+          </div>
+        </div>
 
-      <div
-        id="cityFilters"
-        class="city-filters"
-      >
+        <div class="discover-hero-title public-page-header">
+          <h1>Discover the <em>Night.</em></h1>
+          <div class="discover-hero-sub">
+            <span class="discover-pulse" aria-hidden="true"></span>
+            <span id="discoverVenueCount">Loading venues…</span>
+          </div>
+        </div>
+
+        <div class="discover-search-wrap discover-controls">
+          <svg class="discover-search-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.35-4.35" />
+          </svg>
+          <input
+            type="text"
+            id="venueSearchInput"
+            placeholder="Search venues, cities, vibes…"
+            class="search-input discover-search-bar"
+            autocomplete="off"
+          />
+        </div>
+
+        <div id="cityFilters" class="city-filters discover-city-tabs"></div>
+
+      </header>
+
+      <div class="discover-scroll-area">
+
+        <section class="discover-tonight" id="discoverTonightSection" hidden aria-label="Trending tonight">
+          <div class="discover-section-header">
+            <h2 class="discover-section-title">Tonight <em>Trending</em></h2>
+          </div>
+          <div id="discoverTonightStrip" class="discover-tonight-strip"></div>
+        </section>
+
+        <section class="discover-feed" aria-labelledby="discoverFeedLabel">
+
+          <div class="discover-feed-label">
+            <span class="discover-feed-label-text" id="discoverFeedLabel">Editor's picks</span>
+            <span class="discover-feed-label-line" aria-hidden="true"></span>
+            <span class="discover-feed-label-count" id="discoverFeedCount"></span>
+          </div>
+
+          <div
+            id="venuesContainer"
+            class="venues-grid venues-grid--discover"
+          ></div>
+
+        </section>
+
       </div>
 
-    </div>
+    </main>
 
-    <div
-      id="venuesContainer"
-      class="venues-grid venues-grid--compact"
-    >
-    </div>
+  </div>
 
-  </main>
-
-  <nav class="app-tabbar" aria-label="Primary">
+  <nav class="app-tabbar discover-tabbar" aria-label="Primary">
     <div class="app-tabbar__dock">
       <a href="./index.html" class="app-tabbar__item">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
@@ -129,11 +139,7 @@
         </svg>
         <span>Home</span>
       </a>
-      <a
-        href="./discover.html"
-        class="app-tabbar__item app-tabbar__item--active"
-        aria-current="page"
-      >
+      <a href="./discover.html" class="app-tabbar__item app-tabbar__item--active" aria-current="page">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
           <circle cx="11" cy="11" r="7" />
           <path d="M20 20l-3-3" stroke-linecap="round" />
@@ -164,11 +170,10 @@
   </nav>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script src="./js/app.js"></script>
+  <script src="./js/ui-experiment.js"></script>
 
-<script src="./js/app.js"></script>
-
-<div id="toast" class="toast"></div>
+  <div id="toast" class="toast"></div>
 
 </body>
 </html>
-

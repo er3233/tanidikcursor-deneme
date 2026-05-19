@@ -363,8 +363,306 @@
     }
   }
 
+  const DISCOVER_FEATURED_COUNT = 2;
+
+  function enhanceDiscoverCard(card, index) {
+    card.classList.toggle(
+      "venue-card--featured",
+      index < DISCOVER_FEATURED_COUNT
+    );
+    card.classList.toggle(
+      "venue-card--compact",
+      index >= DISCOVER_FEATURED_COUNT
+    );
+
+    if (card.dataset.discoverPolished === "1") {
+      return;
+    }
+
+    const content = card.querySelector(".venue-content");
+    if (!content) return;
+
+    card.dataset.discoverPolished = "1";
+
+    let img =
+      card.querySelector(".discover-card-img-wrap > img") ||
+      card.querySelector(":scope > img");
+
+    if (img && !card.querySelector(".discover-card-img-wrap")) {
+      const wrap = document.createElement("div");
+      wrap.className = "discover-card-img-wrap";
+      img.parentNode.insertBefore(wrap, img);
+      wrap.appendChild(img);
+
+      if (index < DISCOVER_FEATURED_COUNT) {
+        const feat = document.createElement("span");
+        feat.className = "discover-feat-badge";
+        feat.textContent = "Featured";
+        wrap.appendChild(feat);
+      }
+
+      const overlay = document.createElement("div");
+      overlay.className = "discover-img-overlay";
+      wrap.appendChild(overlay);
+    }
+
+    const overlay = card.querySelector(".discover-img-overlay");
+    const stats = content.querySelector(".venue-stats");
+    const badges = stats
+      ? [...stats.querySelectorAll(".venue-stat-badge")]
+      : [];
+    const ratingBadge = badges[0];
+    const favBadge = badges[1];
+
+    if (overlay && ratingBadge && !overlay.querySelector(".discover-rating-pill")) {
+      const pill = document.createElement("div");
+      pill.className = "discover-rating-pill";
+      const star = document.createElement("span");
+      star.className = "discover-rating-pill__star";
+      star.textContent = "★";
+      const val = document.createElement("span");
+      const match = ratingBadge.textContent.match(/([\d.]+)/);
+      val.textContent = match ? match[1] : "—";
+      pill.append(star, val);
+      overlay.appendChild(pill);
+      ratingBadge.classList.add("discover-stat--hidden");
+    }
+
+    const h2 = content.querySelector("h2");
+    const meta = content.querySelector(".venue-meta");
+    if (h2 && meta && !content.querySelector(".discover-card-row1")) {
+      const row1 = document.createElement("div");
+      row1.className = "discover-card-row1";
+      const nameRow = document.createElement("div");
+      nameRow.className = "discover-card-name-row";
+      row1.appendChild(nameRow);
+      nameRow.appendChild(h2);
+      nameRow.appendChild(meta);
+      meta.classList.add("discover-card-location");
+      content.insertBefore(row1, content.firstChild);
+    }
+
+    if (stats) {
+      stats.classList.add("discover-card-stats");
+    }
+
+    const btn = content.querySelector(".btn");
+    if (btn && !content.querySelector(".discover-card-footer")) {
+      const footer = document.createElement("div");
+      footer.className = "discover-card-footer";
+      const actions = document.createElement("div");
+      actions.className = "discover-card-actions";
+      btn.classList.add("discover-act-btn", "discover-act-btn--primary");
+      actions.appendChild(btn);
+      footer.appendChild(actions);
+
+      const right = document.createElement("div");
+      right.className = "discover-footer-right";
+      if (favBadge) {
+        const count = document.createElement("span");
+        count.className = "discover-like-count";
+        count.textContent = favBadge.textContent;
+        right.appendChild(count);
+        favBadge.classList.add("discover-stat--hidden");
+      }
+      footer.appendChild(right);
+      content.appendChild(footer);
+    }
+  }
+
+  function insertDiscoverFeedDivider(container) {
+    container
+      .querySelectorAll(".discover-feed-divider, .discover-feed-all-label")
+      .forEach((node) => node.remove());
+
+    const cards = container.querySelectorAll(".venue-card");
+    if (cards.length <= DISCOVER_FEATURED_COUNT) return;
+
+    const divider = document.createElement("div");
+    divider.className = "discover-feed-divider";
+    divider.setAttribute("aria-hidden", "true");
+
+    const label = document.createElement("div");
+    label.className = "discover-feed-all-label";
+    const labelText = document.createElement("span");
+    labelText.className = "discover-feed-label-text";
+    labelText.textContent = "All venues";
+    const labelLine = document.createElement("span");
+    labelLine.className = "discover-feed-label-line";
+    labelLine.setAttribute("aria-hidden", "true");
+    const labelCount = document.createElement("span");
+    labelCount.className = "discover-feed-label-count discover-feed-all-count";
+    label.append(labelText, labelLine, labelCount);
+
+    cards[DISCOVER_FEATURED_COUNT].before(label);
+    cards[DISCOVER_FEATURED_COUNT].before(divider);
+  }
+
+  function buildDiscoverTonightStrip() {
+    const strip = document.getElementById("discoverTonightStrip");
+    const section = document.getElementById("discoverTonightSection");
+    const container = document.getElementById("venuesContainer");
+    if (!strip || !section || !container) return;
+
+    strip.innerHTML = "";
+    const sourceCards = [
+      ...container.querySelectorAll(".venue-card"),
+    ].slice(0, 4);
+
+    if (sourceCards.length < 2) {
+      section.hidden = true;
+      return;
+    }
+
+    section.hidden = false;
+
+    sourceCards.forEach((sourceCard) => {
+      const img =
+        sourceCard.querySelector(".discover-card-img-wrap img") ||
+        sourceCard.querySelector("img");
+      const name = sourceCard.querySelector("h2")?.textContent?.trim() || "";
+      const city =
+        sourceCard.querySelector(".venue-meta")?.textContent?.trim() || "";
+
+      const card = document.createElement("article");
+      card.className = "discover-tonight-card";
+      card.setAttribute("role", "button");
+      card.tabIndex = 0;
+      card.addEventListener("click", () => sourceCard.click());
+      card.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          sourceCard.click();
+        }
+      });
+
+      const imgWrap = document.createElement("div");
+      imgWrap.className = "discover-tonight-card__img";
+      if (img) {
+        imgWrap.appendChild(img.cloneNode(true));
+      }
+
+      const body = document.createElement("div");
+      body.className = "discover-tonight-card__body";
+      const title = document.createElement("h3");
+      title.className = "discover-tonight-card__name";
+      title.textContent = name;
+      const meta = document.createElement("p");
+      meta.className = "discover-tonight-card__meta";
+      meta.textContent = city;
+      body.append(title, meta);
+      card.append(imgWrap, body);
+      strip.appendChild(card);
+    });
+  }
+
+  function updateDiscoverMeta() {
+    const countEl = document.getElementById("discoverVenueCount");
+    const feedCount = document.getElementById("discoverFeedCount");
+    const container = document.getElementById("venuesContainer");
+    if (!container) return;
+
+    const total = container.querySelectorAll(".venue-card").length;
+    const empty = container.querySelector(".empty-state");
+
+    if (countEl) {
+      if (empty) {
+        countEl.textContent = "No venues match your filters";
+      } else if (total === 0) {
+        countEl.textContent = "Loading venues…";
+      } else {
+        countEl.textContent = `${total} venue${total === 1 ? "" : "s"} in directory`;
+      }
+    }
+
+    if (feedCount) {
+      if (empty || total === 0) {
+        feedCount.textContent = "";
+      } else {
+        const featured = Math.min(DISCOVER_FEATURED_COUNT, total);
+        feedCount.textContent =
+          total > featured ? `${featured} featured` : `${total} total`;
+      }
+    }
+
+    const allCount = document.querySelector(".discover-feed-all-count");
+    if (allCount && total > DISCOVER_FEATURED_COUNT) {
+      const city =
+        document.querySelector(
+          ".discover-city-tabs .city-filter-btn.active-filter"
+        )?.textContent || "All";
+      allCount.textContent =
+        city === "All"
+          ? `${total - DISCOVER_FEATURED_COUNT} more`
+          : `${city} · ${total - DISCOVER_FEATURED_COUNT}`;
+    }
+  }
+
+  function polishDiscoverFeed() {
+    if (!document.body.classList.contains("discover-index")) return;
+
+    const container = document.getElementById("venuesContainer");
+    if (!container) return;
+
+    container.querySelectorAll(".venue-card").forEach((card, index) => {
+      enhanceDiscoverCard(card, index);
+    });
+
+    insertDiscoverFeedDivider(container);
+    buildDiscoverTonightStrip();
+    updateDiscoverMeta();
+  }
+
+  function syncDiscoverAuthButton() {
+    const authLink = document.getElementById("authLink");
+    const authBtn = document.getElementById("discoverAuthBtn");
+    const authLabel = document.getElementById("discoverAuthLabel");
+    if (!authLink || !authBtn) return;
+
+    authBtn.href = authLink.href;
+    const text = authLink.textContent.trim() || "Account";
+    authBtn.setAttribute("aria-label", text);
+    if (authLabel) {
+      authLabel.textContent = text;
+    }
+  }
+
+  function setupDiscoverAuthSync() {
+    if (!document.body.classList.contains("discover-index")) return;
+
+    const authLink = document.getElementById("authLink");
+    if (!authLink) return;
+
+    syncDiscoverAuthButton();
+    const observer = new MutationObserver(syncDiscoverAuthButton);
+    observer.observe(authLink, {
+      childList: true,
+      characterData: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ["href"],
+    });
+  }
+
+  function setupDiscoverFeedPolish() {
+    if (!document.body.classList.contains("discover-index")) return;
+
+    const container = document.getElementById("venuesContainer");
+    if (!container) return;
+
+    const observer = new MutationObserver(() => {
+      polishDiscoverFeed();
+    });
+
+    observer.observe(container, { childList: true });
+    polishDiscoverFeed();
+  }
+
   async function init() {
     if (!document.body.classList.contains("ui-experiment")) return;
+
+    setupDiscoverFeedPolish();
+    setupDiscoverAuthSync();
 
     const client = window.supabase?.createClient(
       SUPABASE_URL,
@@ -376,6 +674,7 @@
     setupHomeVenueCuration();
     loadHomeSocialProof(client);
     loadHomeMapTeaser(client);
+    polishDiscoverFeed();
   }
 
   if (document.readyState === "loading") {

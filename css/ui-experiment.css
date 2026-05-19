@@ -743,34 +743,919 @@ body.ui-experiment .events-page .venues-grid--compact .venue-content > p {
   color: var(--silver);
 }
 
-/* —— Discover / events page rhythm —— */
+/* —— Discover page — Claude concept merge (scoped) —— */
 
-body.ui-experiment .discover-page.public-detail,
-body.ui-experiment .discover-page.events-page {
+body.ui-experiment.discover-index.app-shell {
+  padding-bottom: 0;
+}
+
+body.ui-experiment.discover-index {
+  --dc-black: #070707;
+  --dc-deep: #0c0c0c;
+  --dc-surface: #111111;
+  --dc-surface-2: #161616;
+  --dc-border: rgba(255, 255, 255, 0.055);
+  --dc-border-mid: rgba(255, 255, 255, 0.1);
+  --dc-border-gold: rgba(198, 162, 90, 0.32);
+  --dc-border-gold-bright: rgba(198, 162, 90, 0.6);
+  --dc-gold: #c6a25a;
+  --dc-gold-light: #debb78;
+  --dc-gold-bright: #f0d090;
+  --dc-gold-dim: rgba(198, 162, 90, 0.14);
+  --dc-gold-glow: rgba(198, 162, 90, 0.08);
+  --dc-white: #f4efe6;
+  --dc-muted: rgba(244, 239, 230, 0.36);
+  --dc-subtle: rgba(244, 239, 230, 0.14);
+  --dc-green: #3ddc84;
+  --dc-r: 14px;
+  background-color: var(--dc-black);
+  color: var(--dc-white);
+}
+
+@media (min-width: 431px) {
+  body.ui-experiment.discover-index {
+    background: #030303;
+  }
+}
+
+body.ui-experiment.discover-index::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.028;
+  pointer-events: none;
+  z-index: 9998;
+}
+
+body.ui-experiment.discover-index .discover-ambient {
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -5%, rgba(198, 162, 90, 0.1), transparent 55%),
+    linear-gradient(180deg, #0c0c0c 0%, #070707 100%);
+  opacity: 1;
+}
+
+body.ui-experiment.discover-index .discover-navbar {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+body.ui-experiment.discover-index .demo-banner {
+  top: calc(var(--safe-top) + 8px);
+  z-index: 200;
+}
+
+body.ui-experiment.discover-index .discover-app-frame {
+  position: relative;
+  z-index: 1;
+  max-width: 430px;
+  margin: 0 auto;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--dc-black);
+  box-shadow: 0 0 0 1px var(--dc-border);
+}
+
+@media (min-width: 431px) {
+  body.ui-experiment.discover-index .discover-app-frame {
+    margin-top: 12px;
+    margin-bottom: 12px;
+    min-height: calc(100dvh - 24px);
+    max-height: 900px;
+    border-radius: 40px;
+    overflow: hidden;
+    box-shadow:
+      0 0 120px rgba(0, 0, 0, 0.95),
+      0 0 0 1px var(--dc-border);
+  }
+}
+
+body.ui-experiment.discover-index .discover-app.public-detail {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+body.ui-experiment.discover-index .discover-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding: calc(12px + var(--safe-top)) 20px 14px;
+  background: linear-gradient(
+    to bottom,
+    var(--dc-black) 0%,
+    rgba(7, 7, 7, 0.97) 65%,
+    rgba(7, 7, 7, 0) 100%
+  );
+}
+
+body.ui-experiment.discover-index .discover-brand-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0 18px;
+}
+
+body.ui-experiment.discover-index .discover-logo-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+body.ui-experiment.discover-index .discover-logo {
+  font-family: var(--fd);
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  color: var(--dc-gold);
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+}
+
+body.ui-experiment.discover-index .discover-logo-sub {
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--dc-muted);
+  padding-left: 2px;
+}
+
+body.ui-experiment.discover-index .discover-brand-actions {
+  display: flex;
+  gap: 8px;
+}
+
+body.ui-experiment.discover-index .discover-icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--dc-border);
+  background: var(--dc-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition:
+    border-color 0.2s,
+    background 0.2s,
+    transform 0.15s;
+  position: relative;
+}
+
+body.ui-experiment.discover-index .discover-icon-btn:hover {
+  border-color: var(--dc-border-gold);
+  background: var(--dc-gold-dim);
+  transform: scale(1.05);
+}
+
+body.ui-experiment.discover-index .discover-icon-btn svg {
+  width: 15px;
+  height: 15px;
+  stroke: var(--dc-muted);
+}
+
+body.ui-experiment.discover-index .discover-icon-btn:hover svg {
+  stroke: var(--dc-gold);
+}
+
+body.ui-experiment.discover-index .discover-icon-btn__label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+body.ui-experiment.discover-index .discover-hero-title.public-page-header {
+  margin: 0 0 18px;
+  padding: 0;
+}
+
+body.ui-experiment.discover-index .discover-hero-title h1 {
+  font-family: var(--fd);
+  font-size: clamp(1.85rem, 8vw, 36px);
+  font-weight: 300;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  color: var(--dc-white);
+  margin: 0;
+}
+
+body.ui-experiment.discover-index .discover-hero-title h1 em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--dc-gold-light);
+}
+
+body.ui-experiment.discover-index .discover-hero-sub {
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dc-muted);
+}
+
+body.ui-experiment.discover-index .discover-pulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--dc-green);
+  box-shadow: 0 0 0 0 rgba(61, 220, 132, 0.6);
+  animation: discoverPulseRing 2s ease infinite;
+  flex-shrink: 0;
+}
+
+@keyframes discoverPulseRing {
+  0% {
+    box-shadow: 0 0 0 0 rgba(61, 220, 132, 0.6);
+  }
+
+  70% {
+    box-shadow: 0 0 0 6px rgba(61, 220, 132, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(61, 220, 132, 0);
+  }
+}
+
+body.ui-experiment.discover-index .discover-search-wrap {
+  position: relative;
+  margin-bottom: 14px;
+}
+
+body.ui-experiment.discover-index .discover-search-icon {
+  position: absolute;
+  left: 17px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 17px;
+  height: 17px;
+  stroke: var(--dc-gold);
+  pointer-events: none;
+  z-index: 1;
+}
+
+body.ui-experiment.discover-index .discover-search-bar.search-input {
+  width: 100%;
+  max-width: none;
+  min-height: 0;
+  background: var(--dc-surface) !important;
+  border: 1px solid var(--dc-border-mid) !important;
+  border-radius: 50px !important;
+  padding: 14px 18px 14px 48px !important;
+  font-family: var(--fu);
+  font-size: 13.5px !important;
+  font-weight: 300;
+  color: var(--dc-white) !important;
+  letter-spacing: 0.02em;
+  box-shadow: none !important;
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s,
+    background 0.3s;
+}
+
+body.ui-experiment.discover-index .discover-search-bar.search-input::placeholder {
+  color: var(--dc-subtle);
+}
+
+body.ui-experiment.discover-index .discover-search-bar.search-input:focus {
+  outline: none;
+  border-color: var(--dc-border-gold-bright) !important;
+  background: var(--dc-surface-2) !important;
+  box-shadow:
+    0 0 0 3px var(--dc-gold-glow),
+    0 8px 32px rgba(0, 0, 0, 0.6) !important;
+}
+
+body.ui-experiment.discover-index .discover-city-tabs.city-filters {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin: 0 -4px;
+  padding: 0 4px 4px;
+  flex-wrap: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+
+body.ui-experiment.discover-index .discover-city-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+body.ui-experiment.discover-index .discover-city-tabs .city-filter-btn {
+  flex-shrink: 0;
+  font-family: var(--fu);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 4px;
+  border: none;
+  border-bottom: 1px solid transparent;
+  background: transparent;
+  color: var(--dc-muted);
+  box-shadow: none;
+  transition:
+    color 0.2s,
+    border-color 0.2s;
+}
+
+body.ui-experiment.discover-index .discover-city-tabs .city-filter-btn:hover {
+  color: rgba(244, 239, 230, 0.7);
+  background: transparent;
+}
+
+body.ui-experiment.discover-index .discover-city-tabs .city-filter-btn.active-filter {
+  color: var(--dc-gold-light);
+  border-bottom-color: var(--dc-gold);
+  background: transparent;
+  box-shadow: none;
+}
+
+body.ui-experiment.discover-index .discover-scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0
+    calc(var(--tabbar-h) + var(--tabbar-pad) * 2 + var(--safe-bottom) + 28px);
+  scrollbar-width: none;
+}
+
+body.ui-experiment.discover-index .discover-scroll-area::-webkit-scrollbar {
+  display: none;
+}
+
+body.ui-experiment.discover-index .discover-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  margin-bottom: 12px;
+}
+
+body.ui-experiment.discover-index .discover-section-title {
+  font-family: var(--fd);
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--dc-white);
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+
+body.ui-experiment.discover-index .discover-section-title em {
+  font-style: italic;
+  color: var(--dc-gold-light);
+}
+
+body.ui-experiment.discover-index .discover-tonight {
+  margin-bottom: 26px;
+}
+
+body.ui-experiment.discover-index .discover-tonight-strip {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 0 20px 4px;
+}
+
+body.ui-experiment.discover-index .discover-tonight-strip::-webkit-scrollbar {
+  display: none;
+}
+
+body.ui-experiment.discover-index .discover-tonight-card {
+  flex-shrink: 0;
+  width: 160px;
+  border-radius: var(--dc-r);
+  overflow: hidden;
+  border: 1px solid var(--dc-border);
+  background: var(--dc-surface);
+  cursor: pointer;
+  transition:
+    border-color 0.25s,
+    transform 0.2s;
+}
+
+body.ui-experiment.discover-index .discover-tonight-card:hover {
+  border-color: var(--dc-border-gold);
+  transform: translateY(-2px);
+}
+
+body.ui-experiment.discover-index .discover-tonight-card__img {
+  height: 110px;
+  position: relative;
+  overflow: hidden;
+}
+
+body.ui-experiment.discover-index .discover-tonight-card__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.75) saturate(0.65);
+  transition:
+    transform 0.5s,
+    filter 0.3s;
+}
+
+body.ui-experiment.discover-index .discover-tonight-card:hover .discover-tonight-card__img img {
+  transform: scale(1.06);
+  filter: brightness(0.85) saturate(0.8);
+}
+
+body.ui-experiment.discover-index .discover-tonight-card__img::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(10, 10, 10, 0.9));
+}
+
+body.ui-experiment.discover-index .discover-tonight-card__body {
+  padding: 10px 10px 11px;
+}
+
+body.ui-experiment.discover-index .discover-tonight-card__name {
+  font-family: var(--fd);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--dc-white);
+  line-height: 1.2;
+  margin: 0 0 3px;
+}
+
+body.ui-experiment.discover-index .discover-tonight-card__meta {
+  font-size: 10px;
+  color: var(--dc-muted);
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+body.ui-experiment.discover-index .discover-feed {
+  padding: 0 20px;
+  min-width: 0;
+}
+
+body.ui-experiment.discover-index .discover-feed-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 4px 0 14px;
+}
+
+body.ui-experiment.discover-index .discover-feed-label-text {
+  font-size: 9.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--dc-muted);
+  white-space: nowrap;
+}
+
+body.ui-experiment.discover-index .discover-feed-label-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, var(--dc-border-gold), transparent);
+}
+
+body.ui-experiment.discover-index .discover-feed-label-count {
+  font-size: 9.5px;
+  color: var(--dc-muted);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+body.ui-experiment.discover-index .discover-feed-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--dc-border-gold), transparent);
+  margin: 6px 0 14px;
+}
+
+body.ui-experiment.discover-index .discover-feed-all-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 14px;
+}
+
+body.ui-experiment.discover-index .venues-grid--discover {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+body.ui-experiment.discover-index .venues-grid--discover .venue-card {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  background: var(--dc-surface);
+  border: 1px solid var(--dc-border);
+  border-radius: var(--dc-r);
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: none;
+  backdrop-filter: none;
+  transform: none;
+  transition:
+    border-color 0.25s,
+    transform 0.2s,
+    box-shadow 0.25s;
+}
+
+body.ui-experiment.discover-index .venues-grid--discover .venue-card::after {
+  display: none;
+}
+
+body.ui-experiment.discover-index .venues-grid--discover .venue-card:hover {
+  border-color: rgba(198, 162, 90, 0.22);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+body.ui-experiment.discover-index .venues-grid--discover .venue-card:active {
+  transform: scale(0.99);
+}
+
+body.ui-experiment.discover-index .venues-grid--discover .venue-card.venue-card--featured {
+  border-color: var(--dc-border-gold);
+}
+
+body.ui-experiment.discover-index .venues-grid--discover .venue-card.venue-card--featured::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 15% -5%,
+    rgba(198, 162, 90, 0.07) 0%,
+    transparent 55%
+  );
+  pointer-events: none;
+  z-index: 0;
+  height: auto;
+}
+
+body.ui-experiment.discover-index .discover-card-img-wrap {
+  position: relative;
+  height: 190px;
+  overflow: hidden;
+}
+
+body.ui-experiment.discover-index .venue-card--compact .discover-card-img-wrap {
+  height: 138px;
+}
+
+body.ui-experiment.discover-index .discover-card-img-wrap > img {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  max-height: none;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0.82) saturate(0.68);
+  transition:
+    transform 0.55s ease,
+    filter 0.3s;
+}
+
+body.ui-experiment.discover-index .venue-card:hover .discover-card-img-wrap > img {
+  transform: scale(1.04);
+  filter: brightness(0.9) saturate(0.8);
+}
+
+body.ui-experiment.discover-index .discover-card-img-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 20%, rgba(7, 7, 7, 0.7) 100%);
+  pointer-events: none;
+}
+
+body.ui-experiment.discover-index .discover-feat-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 3;
+  background: linear-gradient(135deg, #c6a25a, #e2c07a);
+  color: var(--dc-black);
+  font-size: 8.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 50px;
+  font-family: var(--fu);
+  pointer-events: none;
+}
+
+body.ui-experiment.discover-index .discover-img-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px 12px;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  pointer-events: none;
+}
+
+body.ui-experiment.discover-index .discover-rating-pill {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--dc-gold-dim);
+  border: 1px solid var(--dc-border-gold);
+  border-radius: 50px;
+  padding: 4px 9px;
+  margin-left: auto;
+}
+
+body.ui-experiment.discover-index .discover-rating-pill__star {
+  font-size: 10px;
+  color: var(--dc-gold);
+  line-height: 1;
+}
+
+body.ui-experiment.discover-index .discover-rating-pill span:last-child {
+  font-size: 11px;
+  color: var(--dc-gold-light);
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
+body.ui-experiment.discover-index .venues-grid--discover .venue-content {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding: 13px 14px 0;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-width: 0;
+}
+
+body.ui-experiment.discover-index .discover-card-row1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 0;
+}
+
+body.ui-experiment.discover-index .discover-card-name-row {
+  flex: 1;
+  min-width: 0;
+}
+
+body.ui-experiment.discover-index .venues-grid--discover .venue-content h2 {
+  font-family: var(--fd);
+  font-size: 21px;
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--dc-white);
+  letter-spacing: 0.01em;
+  margin: 0;
+  padding: 0;
+}
+
+body.ui-experiment.discover-index .venue-card--compact .venue-content h2 {
+  font-size: 17px;
+}
+
+body.ui-experiment.discover-index .discover-card-location.venue-meta {
+  font-size: 11px;
+  color: var(--dc-muted);
+  letter-spacing: 0.04em;
+  text-transform: none;
+  margin: 3px 0 0;
+  display: block;
+}
+
+body.ui-experiment.discover-index .venues-grid--discover .venue-content > p {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 12.5px;
+  line-height: 1.58;
+  color: var(--dc-muted);
+  margin: 9px 0 10px;
+}
+
+body.ui-experiment.discover-index .discover-card-stats.venue-stats {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 10px;
+  flex-wrap: wrap;
+}
+
+body.ui-experiment.discover-index .discover-stat--hidden {
+  display: none !important;
+}
+
+body.ui-experiment.discover-index .discover-card-stats .venue-stat-badge:not(.discover-stat--hidden) {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--dc-muted);
+  padding: 0;
+  border: none;
+  background: transparent;
+  letter-spacing: 0;
+  text-transform: none;
+  font-family: var(--fu);
+}
+
+body.ui-experiment.discover-index .discover-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 14px 12px;
+  border-top: 1px solid var(--dc-border);
+  margin-top: 0;
+}
+
+body.ui-experiment.discover-index .discover-card-actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+body.ui-experiment.discover-index .discover-act-btn.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 50px;
+  padding: 7px 14px;
+  min-height: 0;
+  width: auto;
+  max-width: none;
+  font-family: var(--fu);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  cursor: pointer;
+  border: 1px solid var(--dc-border);
+  background: transparent;
+  color: var(--dc-muted);
+  box-shadow: none;
+  margin: 0;
+}
+
+body.ui-experiment.discover-index .discover-act-btn--primary.btn {
+  background: var(--dc-gold-dim);
+  border-color: var(--dc-border-gold);
+  color: var(--dc-gold-light);
+}
+
+body.ui-experiment.discover-index .discover-act-btn.btn:hover {
+  border-color: var(--dc-border-gold);
+  color: var(--dc-gold-light);
+  background: var(--dc-gold-glow);
+}
+
+body.ui-experiment.discover-index .discover-footer-right {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+body.ui-experiment.discover-index .discover-like-count {
+  font-size: 10.5px;
+  color: var(--dc-muted);
+  letter-spacing: 0.03em;
+  min-width: 20px;
+  text-align: right;
+}
+
+body.ui-experiment.discover-index .venues-grid--discover .empty-state {
+  padding: 28px 18px;
+  border-radius: var(--dc-r);
+  border: 1px dashed var(--dc-border-gold);
+  background: var(--dc-surface);
+  text-align: center;
+  color: var(--dc-muted);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+body.ui-experiment.discover-index .discover-tabbar.app-tabbar {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  width: 100%;
+  max-width: 430px;
+  z-index: 100;
+  padding: 10px 12px calc(10px + var(--safe-bottom));
+  pointer-events: none;
+}
+
+body.ui-experiment.discover-index .discover-tabbar .app-tabbar__dock {
+  pointer-events: auto;
+  max-width: none;
+  margin: 0;
+  border-radius: 0;
+  background: rgba(8, 8, 8, 0.94);
+  backdrop-filter: blur(24px);
+  border: none;
+  border-top: 1px solid var(--dc-border);
+  box-shadow: none;
+  padding: 4px 5px;
+}
+
+@media (min-width: 431px) {
+  body.ui-experiment.discover-index .discover-tabbar.app-tabbar {
+    position: absolute;
+    border-radius: 0 0 40px 40px;
+    overflow: hidden;
+  }
+}
+
+body.ui-experiment.discover-index .discover-tabbar .app-tabbar__item {
+  color: var(--dc-subtle);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+}
+
+body.ui-experiment.discover-index .discover-tabbar .app-tabbar__item svg {
+  stroke: var(--dc-subtle);
+  opacity: 1;
+}
+
+body.ui-experiment.discover-index .discover-tabbar .app-tabbar__item--active {
+  color: var(--dc-gold);
+  background: transparent;
+}
+
+body.ui-experiment.discover-index .discover-tabbar .app-tabbar__item--active svg {
+  stroke: var(--dc-gold);
+}
+
+@media (max-width: 360px) {
+  body.ui-experiment.discover-index .discover-hero-title h1 {
+    font-size: 1.75rem;
+  }
+
+  body.ui-experiment.discover-index .discover-search-bar.search-input {
+    font-size: 13px !important;
+    padding-left: 44px !important;
+  }
+
+  body.ui-experiment.discover-index .venues-grid--discover .venue-content h2 {
+    font-size: 18px;
+  }
+
+  body.ui-experiment.discover-index .venue-card--compact .venue-content h2 {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.ui-experiment.discover-index .discover-pulse {
+    animation: none;
+  }
+}
+
+/* —— Discover / events page rhythm (events unchanged) —— */
+
+body.ui-experiment .discover-page.events-page.public-detail {
   padding-top: calc(var(--nav-h) + 20px);
   padding-left: 16px;
   padding-right: 16px;
   padding-bottom: 32px;
 }
 
-body.ui-experiment .discover-page .public-page-header {
-  margin-bottom: 14px;
-}
-
-body.ui-experiment .discover-page .public-page-header h1 {
-  font-size: clamp(1.5rem, 4vw, 2rem);
-  margin-bottom: 0;
-}
-
-body.ui-experiment .discover-page .discover-controls.public-section,
 body.ui-experiment .events-page .discover-controls {
   padding: 14px 16px;
   margin-bottom: 16px;
-}
-
-body.ui-experiment .discover-page .search-input {
-  max-width: none;
-  padding: 14px 18px;
 }
 
 /* —— Venue detail app layout —— */
