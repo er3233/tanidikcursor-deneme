@@ -25,7 +25,7 @@
   <link rel="stylesheet" href="./css/ui-experiment.css" />
 </head>
 
-<body class="app-shell ui-experiment">
+<body class="app-shell ui-experiment home-index">
 
   <div class="experiment-ambient" aria-hidden="true"></div>
 
@@ -45,16 +45,45 @@
 
   <main class="home-app-main home-hybrid public-detail">
 
-    <section class="home-search-panel public-section discover-controls" aria-label="Search venues">
-      <input type="text" id="venueSearchInput" placeholder="Search venues by name, city, vibe…" class="search-input" />
-      <div id="cityFilters" class="city-filters"></div>
-      <a href="./discover.html" class="secondary-btn home-discover-link">Open full discover view</a>
+    <section class="home-cinema-hero" aria-label="Discover tonight">
+      <div class="home-cinema-hero__atmosphere" aria-hidden="true">
+        <span class="home-cinema-hero__grid"></span>
+        <span class="home-cinema-hero__particles"></span>
+        <span class="home-cinema-hero__glow"></span>
+        <span class="home-cinema-hero__vignette"></span>
+      </div>
+
+      <div id="homeHeroFloats" class="home-cinema-hero__floats"></div>
+
+      <header class="home-cinema-hero__copy">
+        <p class="home-cinema-hero__eyebrow">Tonight starts here</p>
+        <h2 class="home-cinema-hero__title">
+          Search the city, <em>feel</em> the room
+        </h2>
+        <p class="home-cinema-hero__subtitle">
+          Venues, events, and reservations — one feed tuned for going out.
+        </p>
+      </header>
+
+      <div
+        class="home-cinema-hero__search discover-controls home-search-panel"
+        aria-label="Search venues"
+      >
+        <div class="home-cinema-hero__search-row">
+          <input
+            type="text"
+            id="venueSearchInput"
+            placeholder="Search venues by name, city, vibe…"
+            class="search-input home-cinema-hero__search-input"
+          />
+          <a href="./discover.html" class="btn home-cinema-hero__search-btn">Explore</a>
+        </div>
+        <div id="cityFilters" class="city-filters home-cinema-hero__chips"></div>
+        <a href="./discover.html" class="secondary-btn home-discover-link">Open full discover view</a>
+      </div>
     </section>
 
-    <header class="home-hybrid-hero home-app-hero">
-      <p class="home-app-eyebrow">Tonight starts here</p>
-      <h2>Search the city, <em>feel</em> the room</h2>
-    </header>
+    <div class="home-below-hero">
 
     <section class="home-venues-feed home-section" aria-label="Recommended venues">
       <div class="home-section__head">
@@ -97,6 +126,8 @@
         <a href="./auth.html" class="secondary-btn">Sign in</a>
       </div>
     </section>
+
+    </div>
 
   </main>
 

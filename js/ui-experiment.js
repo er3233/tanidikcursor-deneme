@@ -8,6 +8,13 @@
 
   const CURATED_LIMIT = 6;
   const EL = String.fromCharCode(100, 105, 118);
+  const PLACEHOLDER_IMAGE =
+    "https://placehold.co/600x400/111111/FFFFFF?text=TANIDIK";
+  const FLOAT_POSITIONS = [
+    "home-hero-float-card--left",
+    "home-hero-float-card--right",
+    "home-hero-float-card--bl",
+  ];
 
   let venueStatsCache = {};
   let venueNameToId = {};
@@ -319,6 +326,83 @@
       .sort((a, b) => b.score - a.score)[0].venue;
   }
 
+  function getImage(image) {
+    return image || PLACEHOLDER_IMAGE;
+  }
+
+  async function loadHeroFloatingCards(client) {
+    const container = document.getElementById("homeHeroFloats");
+    if (!container) return;
+
+    const { data: venues, error } = await client
+      .from("venues")
+      .select("*")
+      .limit(16);
+
+    if (error || !venues || venues.length === 0) {
+      return;
+    }
+
+    const ranked = venues
+      .map((venue) => ({
+        venue,
+        score: getCardScore(venue.id),
+      }))
+      .sort((a, b) => b.score - a.score);
+
+    container.innerHTML = "";
+
+    ranked.slice(0, 3).forEach((item, index) => {
+      const { venue } = item;
+      const card = document.createElement("article");
+      card.className = `home-hero-float-card ${FLOAT_POSITIONS[index] || FLOAT_POSITIONS[0]}`;
+      card.setAttribute("role", "button");
+      card.tabIndex = 0;
+      card.setAttribute(
+        "aria-label",
+        `Preview ${safeText(venue.name)}`
+      );
+
+      const img = document.createElement("img");
+      img.src = getImage(venue.image);
+      img.alt = safeText(venue.name);
+      img.loading = "lazy";
+      img.onerror = function onImageError() {
+        this.src = PLACEHOLDER_IMAGE;
+      };
+
+      const body = document.createElement(EL);
+      body.className = "home-hero-float-card__body";
+
+      const title = document.createElement("h3");
+      title.textContent = safeText(venue.name);
+
+      const meta = document.createElement("span");
+      meta.textContent = safeText(venue.city) || "Venue";
+
+      body.appendChild(title);
+      body.appendChild(meta);
+      card.appendChild(img);
+      card.appendChild(body);
+
+      const open = () => {
+        if (typeof window.openVenue === "function") {
+          window.openVenue(venue.id);
+        }
+      };
+
+      card.addEventListener("click", open);
+      card.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          open();
+        }
+      });
+
+      container.appendChild(card);
+    });
+  }
+
   async function loadHomeMapTeaser(client) {
     const section = document.getElementById("homeMapSection");
     const map = document.getElementById("homeMapEmbed");
@@ -375,6 +459,7 @@
 
     await loadVenueStatsCache(client);
     setupHomeVenueCuration();
+    loadHeroFloatingCards(client);
     loadHomeSocialProof(client);
     loadHomeMapTeaser(client);
   }
